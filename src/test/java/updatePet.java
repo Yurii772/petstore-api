@@ -2,19 +2,17 @@ import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class GetPetCase {
+public class updatePet {
 
     @Test
-    public void getPetByID() {
-        int id = 0;
+    public void updatePets() {
+        int id = 1;
         given()
                 .baseUri("https://petstore.swagger.io")
                 .when()
-                .get("/v2/pet/{id}", id)
+                .post("/v2/pet/{id}", id)
                 .then()
                 .log().all()
-                .statusCode(404);
+                .statusCode(200);
     }
-
 }
-
