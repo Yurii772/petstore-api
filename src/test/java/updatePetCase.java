@@ -2,10 +2,10 @@ import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class updatePet {
+public class updatePetCase {
 
     @Test
-    public void updatePets() {
+    public void updatePetsCase() {
         int id = 1;
         given()
                 .baseUri("https://petstore.swagger.io")
