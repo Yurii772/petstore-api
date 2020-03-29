@@ -15,3 +15,4 @@ public class getByStatusCase {
                 .statusCode(200);
     }
 }
+
