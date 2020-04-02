@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
 public class GetPetCase {
@@ -39,6 +40,7 @@ public class GetPetCase {
                 .post("/pet/{id}", id)
                 .then()
                 .log().all()
+                .body("message", anyOf(is(id), is(String.valueOf(id))))
                 .statusCode(200);
     }
 
