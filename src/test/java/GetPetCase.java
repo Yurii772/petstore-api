@@ -1,5 +1,6 @@
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,15 +33,18 @@ public class GetPetCase {
     @Test
     public void updatePetsCase() {
         int id = 6739257;
+        String name = "Sharikas";
+        String status = "sold";
         given()
-                .param("name" , "sharikas")
-                .param("status", "sold")
+                .contentType("application/x-www-form-urlencoded")
+                .param( "name", name)
+                .param("status", status)
                 .log().all()
                 .when()
                 .post("/pet/{id}", id)
                 .then()
                 .log().all()
-                .body("message", anyOf(is(id), is(String.valueOf(id))))
+                .body( "message", anyOf(is(id), is(String.valueOf(id))))
                 .statusCode(200);
     }
 
@@ -98,6 +102,7 @@ public class GetPetCase {
                 "  \"status\": \"available\"\n" +
                 "}";
         given()
+                .contentType(ContentType.JSON)
                 .body (body)
                 .log().all()
                 .when()
@@ -110,7 +115,7 @@ public class GetPetCase {
     }
     @Test
     public void delPet(){
-        int id=5;
+        int id=454; //видалив раніше створеного пета
         given()
                 .log()
                 .all()
@@ -119,6 +124,7 @@ public class GetPetCase {
                 .delete("/pet/{id}", id)
                 .then()
                 .log().all()
+                .body("message", is(String.valueOf(id))) //скоріше за все, не валідна перевірка
                 .statusCode(200);
     }
     @Test
@@ -130,7 +136,7 @@ public class GetPetCase {
                 .get ("/pet/findByStatus?status{status}", status)
                 .then()
                 .log().all()
-                .body("status", is(status))
+                .body("status", is(status)) //повертається пустий масив
                 .statusCode(200);
     }
 }
