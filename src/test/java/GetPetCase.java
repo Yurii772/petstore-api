@@ -77,13 +77,15 @@ public class GetPetCase {
     }
     @Test
     public void addPetCase() {
+        int id = 454;
+        String name = "Harold";
         String body = "{\n" +
                 "  \"id\": 454,\n" +
                 "  \"category\": {\n" +
                 "    \"id\": 0,\n" +
                 "    \"name\": \"string\"\n" +
                 "  },\n" +
-                "  \"name\": \"UmaTurman\",\n" +
+                "  \"name\": \"Harold\",\n" +
                 "  \"photoUrls\": [\n" +
                 "    \"string\"\n" +
                 "  ],\n" +
@@ -102,6 +104,8 @@ public class GetPetCase {
                 .post("/pet/")
                 .then()
                 .log().all()
+                .body("id", is(id))
+                .body("name", is(name))
                 .statusCode(200);
     }
 
