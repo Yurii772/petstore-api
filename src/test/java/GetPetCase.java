@@ -12,7 +12,7 @@ public class GetPetCase {
     public void before () {
         RequestSpecBuilder spec = new RequestSpecBuilder();
         spec.setBaseUri("https://petstore.swagger.io/v2");
-        spec.addHeader("ContentType", "application/json");
+        spec.addHeader("Content-Type", "application/json");
         RestAssured.requestSpecification=spec.build();
     }
 
@@ -96,7 +96,6 @@ public class GetPetCase {
                 "  \"status\": \"available\"\n" +
                 "}";
         given()
-                .contentType("application/x-www-form-urlencoded")
                 .body (body)
                 .log().all()
                 .when()
