@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
 
 public class GetPetCase {
     @Before
@@ -16,7 +17,7 @@ public class GetPetCase {
 
     @Test
     public void getPetByID() {
-        int id = 112316;
+        int id = 5795;
         given()
                 .log()
                 .all()
@@ -24,11 +25,12 @@ public class GetPetCase {
                 .get("/pet/{id}", id)
                 .then()
                 .log().all()
+                .body("id", is(id))
                 .statusCode(200);
     }
     @Test
     public void updatePetsCase() {
-        int id = 112316;
+        int id = 5795;
         given()
                 .param("name" , "sharikas")
                 .param("status", "sold")
