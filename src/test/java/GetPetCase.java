@@ -115,7 +115,7 @@ public class GetPetCase {
     }
     @Test
     public void delPet(){
-        int id=454; //видалив раніше створеного пета
+        int id=454; //видалив раніше створеного пета. падає при груповому рані
         given()
                 .log()
                 .all()
