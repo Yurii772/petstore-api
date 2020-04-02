@@ -47,12 +47,12 @@ public class GetPetCase {
     @Test
     public void updateExPet(){
         String body = ("<Pet>\n" +
-                "\t<id>6739257</id>\n" +
+                "\t<id>6739257</id>\n" + //захардкоджено айді як вставити значення змінної?
                 "\t<Category>\n" +
                 "\t\t<id>0</id>\n" +
-                "\t\t<name>string</name>\n" +
+                "\t\t<name>string</name>\n" + // захаркоджено їм'я. аналогічно 50
                 "\t</Category>\n" +
-                "\t<name>doggie</name>\n" +
+                "\t<name>Alik</name>\n" +
                 "\t<photoUrls>\n" +
                 "\t\t<photoUrl>string</photoUrl>\n" +
                 "\t</photoUrls>\n" +
@@ -72,6 +72,7 @@ public class GetPetCase {
                 .put("/pet/")
                 .then()
                 .log().all()
+                .body("name", is("Alik"))
                 .statusCode(200);
     }
     @Test
