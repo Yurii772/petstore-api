@@ -18,7 +18,7 @@ public class GetPetCase {
 
     @Test
     public void getPetByID() {
-        int id = 5795;
+        int id = 6739257;
         given()
                 .log()
                 .all()
@@ -31,7 +31,7 @@ public class GetPetCase {
     }
     @Test
     public void updatePetsCase() {
-        int id = 5795;
+        int id = 6739257;
         given()
                 .param("name" , "sharikas")
                 .param("status", "sold")
@@ -47,7 +47,7 @@ public class GetPetCase {
     @Test
     public void updateExPet(){
         String body = ("<Pet>\n" +
-                "\t<id>0</id>\n" +
+                "\t<id>6739257</id>\n" +
                 "\t<Category>\n" +
                 "\t\t<id>0</id>\n" +
                 "\t\t<name>string</name>\n" +
