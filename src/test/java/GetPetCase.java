@@ -108,8 +108,6 @@ public class GetPetCase {
                 .body("name", is(name))
                 .statusCode(200);
     }
-
-
     @Test
     public void delPet(){
         int id=5;
@@ -125,13 +123,14 @@ public class GetPetCase {
     }
     @Test
     public void getByStatus (){
-        String status="pending";
+        String status="sold";
         given()
                 .when()
                 .log().all()
                 .get ("/pet/findByStatus?status{status}", status)
                 .then()
                 .log().all()
+                .body("status", is(status))
                 .statusCode(200);
     }
 }
