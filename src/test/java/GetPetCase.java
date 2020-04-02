@@ -46,28 +46,30 @@ public class GetPetCase {
 
     @Test
     public void updateExPet(){
+        String body = ("<Pet>\n" +
+                "\t<id>0</id>\n" +
+                "\t<Category>\n" +
+                "\t\t<id>0</id>\n" +
+                "\t\t<name>string</name>\n" +
+                "\t</Category>\n" +
+                "\t<name>doggie</name>\n" +
+                "\t<photoUrls>\n" +
+                "\t\t<photoUrl>string</photoUrl>\n" +
+                "\t</photoUrls>\n" +
+                "\t<tags>\n" +
+                "\t\t<Tag>\n" +
+                "\t\t\t<id>0</id>\n" +
+                "\t\t\t<name>string</name>\n" +
+                "\t\t</Tag>\n" +
+                "\t</tags>\n" +
+                "\t<status>available</status>\n" +
+                "</Pet>");
         given()
-                .body("{\n" +
-                        "  \"id\": 8,\n" +
-                        "  \"category\": {\n" +
-                        "    \"id\": 0,\n" +
-                        "    \"name\": \"string\"\n" +
-                        "  },\n" +
-                        "  \"name\": \"doggie\",\n" +
-                        "  \"photoUrls\": [\n" +
-                        "    \"string\"\n" +
-                        "  ],\n" +
-                        "  \"tags\": [\n" +
-                        "    {\n" +
-                        "      \"id\": 0,\n" +
-                        "      \"name\": \"string\"\n" +
-                        "    }\n" +
-                        "  ],\n" +
-                        "  \"status\": \"sold\"\n" +
-                        "}")
+                .contentType("application/xml")
+                .body (body)
                 .log().all()
                 .when()
-                .put("/pet")
+                .put("/pet/")
                 .then()
                 .log().all()
                 .statusCode(200);
