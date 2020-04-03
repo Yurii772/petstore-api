@@ -49,6 +49,7 @@ public class GetPetCase {
 
     @Test
     public void updateExPet(){
+
         String body = ("<Pet>\n" +
                 "\t<id>6739257</id>\n" + //захардкоджено айді як вставити значення змінної?
                 "\t<Category>\n" +
@@ -88,7 +89,7 @@ public class GetPetCase {
                 "    \"id\": 0,\n" +
                 "    \"name\": \"string\"\n" +
                 "  },\n" +
-                "  \"name\": \"Harold\",\n" +
+                "  \"name\": \""+name+"\",\n" +
                 "  \"photoUrls\": [\n" +
                 "    \"string\"\n" +
                 "  ],\n" +
@@ -114,7 +115,33 @@ public class GetPetCase {
     }
     @Test
     public void delPet(){
-        int id=454; //видалив раніше створеного пета. падає при груповому рані
+        //preconditions
+        int id = 454;
+        String name = "Harold";
+        String body = "{\n" +
+                "  \"id\":\""+id+"\",\n" +
+                "  \"category\": {\n" +
+                "    \"id\": 0,\n" +
+                "    \"name\": \"string\"\n" +
+                "  },\n" +
+                "  \"name\": \""+name+"\",\n" +
+                "  \"photoUrls\": [\n" +
+                "    \"string\"\n" +
+                "  ],\n" +
+                "  \"tags\": [\n" +
+                "    {\n" +
+                "      \"id\": 0,\n" +
+                "      \"name\": \"string\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"status\": \"available\"\n" +
+                "}";
+        given()
+                .contentType(ContentType.JSON)
+                .body (body)
+                .log().all()
+                .when()
+                .post("/pet/");
         given()
                 .log()
                 .all()
@@ -140,6 +167,7 @@ public class GetPetCase {
                 .statusCode(200);
     }
 }
+
 
 
 
