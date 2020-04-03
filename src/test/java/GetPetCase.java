@@ -83,7 +83,7 @@ public class GetPetCase {
         int id = 454;
         String name = "Harold";
         String body = "{\n" +
-                "  \"id\": 454,\n" +
+                "  \"id\":\""+id+"\",\n" +
                 "  \"category\": {\n" +
                 "    \"id\": 0,\n" +
                 "    \"name\": \"string\"\n" +
@@ -136,7 +136,7 @@ public class GetPetCase {
                 .get ("/pet/findByStatus?status{status}", status)
                 .then()
                 .log().all()
-                .body("status", everyItem(equalTo(status))) //повертається пустий масив
+                .body("status", everyItem(equalTo(status)))
                 .statusCode(200);
     }
 }
