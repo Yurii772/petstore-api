@@ -5,8 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class GetPetCase {
     @Before
@@ -129,14 +128,15 @@ public class GetPetCase {
     }
     @Test
     public void getByStatus (){
-        String status="sold";
+        String status="available";
         given()
                 .when()
+                .param("status", status)
                 .log().all()
                 .get ("/pet/findByStatus?status{status}", status)
                 .then()
                 .log().all()
-                .body("status", is(status)) //повертається пустий масив
+                .body("status", everyItem(equalTo(status))) //повертається пустий масив
                 .statusCode(200);
     }
 }
