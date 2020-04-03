@@ -116,7 +116,7 @@ public class GetPetCase {
     @Test
     public void delPet(){
         //preconditions
-        int id = 454;
+        int id = 600;
         String name = "Harold";
         String body = "{\n" +
                 "  \"id\":\""+id+"\",\n" +
