@@ -88,7 +88,7 @@ public class GetPetCase {
     }
     @Test
     public void addPetCase() {
-        int id = 454;
+        //int id = 454;
         String name = "Harold";
         String body = "{\n" +
                 "  \"id\":\""+id+"\",\n" +
@@ -124,7 +124,6 @@ public class GetPetCase {
     public void delPet(){
         //preconditions
        // int delId = 600;
-        //
         String body = "{\n" +
                 "  \"id\":\""+delId+"\",\n" +
                 "  \"category\": {\n" +
