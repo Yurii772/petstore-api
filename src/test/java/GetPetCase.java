@@ -8,6 +8,13 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 public class GetPetCase {
+    int id = 6739257;
+    int delId = 600;
+    int updId = 457;
+    String status="available";
+    String name = "Harold";
+    String updName = "Sharikas";
+    //String generatedString = RandomStringUtils.randomAlphabetic(10)
     @Before
     public void before () {
         RequestSpecBuilder spec = new RequestSpecBuilder();
@@ -18,7 +25,7 @@ public class GetPetCase {
 
     @Test
     public void getPetByID() {
-        int id = 6739257;
+        //int id = 6739257;
         given()
                 .log()
                 .all()
@@ -31,12 +38,12 @@ public class GetPetCase {
     }
     @Test
     public void updatePetsCase() {
-        int id = 6739257;
-        String name = "Sharikas";
-        String status = "sold";
+       // int id = 6739257;
+
+        //String status = "so";
         given()
                 .contentType("application/x-www-form-urlencoded")
-                .param( "name", name)
+                .param( "name", updName)
                 .param("status", status)
                 .log().all()
                 .when()
@@ -50,33 +57,33 @@ public class GetPetCase {
     @Test
     public void updateExPet(){
 
-        String body = ("<Pet>\n" +
-                "\t<id>6739257</id>\n" + //захардкоджено айді як вставити значення змінної?
-                "\t<Category>\n" +
-                "\t\t<id>0</id>\n" +
-                "\t\t<name>string</name>\n" + // захаркоджено їм'я. аналогічно 50
-                "\t</Category>\n" +
-                "\t<name>Alik</name>\n" +
-                "\t<photoUrls>\n" +
-                "\t\t<photoUrl>string</photoUrl>\n" +
-                "\t</photoUrls>\n" +
-                "\t<tags>\n" +
-                "\t\t<Tag>\n" +
-                "\t\t\t<id>0</id>\n" +
-                "\t\t\t<name>string</name>\n" +
-                "\t\t</Tag>\n" +
-                "\t</tags>\n" +
-                "\t<status>available</status>\n" +
-                "</Pet>");
+        String body = ("{\n" +
+                "  \"id\":\""+updId+"\",\n" +
+                "  \"category\": {\n" +
+                "    \"id\": 0,\n" +
+                "    \"name\": \"string\"\n" +
+                "  },\n" +
+                "  \"name\": \""+updName+"\",\n" +
+                "  \"photoUrls\": [\n" +
+                "    \"string\"\n" +
+                "  ],\n" +
+                "  \"tags\": [\n" +
+                "    {\n" +
+                "      \"id\": 0,\n" +
+                "      \"name\": \"string\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"status\": \"available\"\n" +
+                "}");
         given()
-                .contentType("application/xml")
+                .contentType(ContentType.JSON)
                 .body (body)
                 .log().all()
                 .when()
                 .put("/pet/")
                 .then()
                 .log().all()
-                .body("name", is("Alik"))
+                .body("name", is(updName))
                 .statusCode(200);
     }
     @Test
@@ -116,10 +123,10 @@ public class GetPetCase {
     @Test
     public void delPet(){
         //preconditions
-        int id = 600;
-        String name = "Harold";
+       // int delId = 600;
+        //
         String body = "{\n" +
-                "  \"id\":\""+id+"\",\n" +
+                "  \"id\":\""+delId+"\",\n" +
                 "  \"category\": {\n" +
                 "    \"id\": 0,\n" +
                 "    \"name\": \"string\"\n" +
@@ -147,15 +154,15 @@ public class GetPetCase {
                 .all()
                 .header("api_key", "special-key")
                 .when()
-                .delete("/pet/{id}", id)
+                .delete("/pet/{delId}", delId)
                 .then()
                 .log().all()
-                .body("message", is(String.valueOf(id))) //скоріше за все, не валідна перевірка
+                .body("message", is(String.valueOf(delId))) //скоріше за все, не валідна перевірка
                 .statusCode(200);
     }
     @Test
     public void getByStatus (){
-        String status="available";
+      //  String status="available";
         given()
                 .when()
                 .param("status", status)
