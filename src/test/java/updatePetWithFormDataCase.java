@@ -25,14 +25,13 @@ public class updatePetWithFormDataCase {
     }
     @Before
     public void before2() {
-        int id=0;
         String body = "{\n" +
-                "  \"id\":\""+id+"\",\n" +
+                "  \"id\":\"0\",\n" +
                 "  \"category\": {\n" +
                 "    \"id\": 0,\n" +
                 "    \"name\": \"string\"\n" +
                 "  },\n" +
-                "  \"name\": \""+updName+"\",\n" +
+                "  \"name\": \"Alik\",\n" +
                 "  \"photoUrls\": [\n" +
                 "    \"string\"\n" +
                 "  ],\n" +
