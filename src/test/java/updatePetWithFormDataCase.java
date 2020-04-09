@@ -17,14 +17,14 @@ public class updatePetWithFormDataCase {
     long addedPetId;
 
     @Before
-    public void before1() {
+    public void before2() {
         RequestSpecBuilder spec = new RequestSpecBuilder();
         spec.setBaseUri("https://petstore.swagger.io/v2");
         spec.addHeader("Content-Type", "application/json");
         RestAssured.requestSpecification = spec.build();
     }
     @Before
-    public void before2() {
+    public void before1() {
         String body = "{\n" +
                 "  \"id\":\"0\",\n" +
                 "  \"category\": {\n" +
