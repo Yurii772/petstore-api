@@ -1,35 +1,24 @@
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.ValidatableResponse;
-import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
-
 public class GetByID {
-    String updName = "Sharikas";
-    String status = "sold";
-    long addedPetId;
+
+    PetEndpoint petEndpoint=new PetEndpoint();
+    long createdPetId;
 
     @Before
-    public void before2() {
-        RequestSpecBuilder spec = new RequestSpecBuilder();
-        spec.setBaseUri("https://petstore.swagger.io/v2");
-        spec.addHeader("Content-Type", "application/json");
-        RestAssured.requestSpecification = spec.build();
-    }
-    @Before
-    public void before1() {
+    public void createPreconditions() {
+       // int id=0;
+        String name="Alik";
         String body = "{\n" +
                 "  \"id\":\"0\",\n" +
                 "  \"category\": {\n" +
                 "    \"id\": 0,\n" +
                 "    \"name\": \"string\"\n" +
                 "  },\n" +
-                "  \"name\": \"Alik\",\n" +
+                "  \"name\": \""+name+"\",\n" +
                 "  \"photoUrls\": [\n" +
                 "    \"string\"\n" +
                 "  ],\n" +
@@ -41,40 +30,15 @@ public class GetByID {
                 "  ],\n" +
                 "  \"status\": \"available\"\n" +
                 "}";
-        ValidatableResponse response = given()
-                .body(body)
-                .when()
-                .post("/pet")
-                .then()
-                .log()
-                .all();
-        addedPetId = response.extract().path("id");
-        System.out.println(addedPetId);
+        ValidatableResponse response=petEndpoint.createPet(body);
+        createdPetId=response.extract().path("id");
     }
     @After
     public void deleteCreatedPreconditions () {
-        given()
-                .log()
-                .all()
-                .header("api_key", "special-key")
-                .when()
-                .delete("/pet/{addedPetId}", addedPetId)
-                .then()
-                .log()
-                .all()
-                .body("message", Matchers.is(String.valueOf(addedPetId)))
-                .statusCode(200);
+        petEndpoint.deletePet(createdPetId);
     }
     @Test
-    public void getPetById () {
-        given()
-                .log()
-                .all()
-                .when()
-                .get("/pet/{addedPetId}", addedPetId)
-                .then()
-                .log().all()
-                .body("id", is(addedPetId))
-                .statusCode(200);
+   public void getPetById () {
+        petEndpoint.getById(createdPetId);
     }
 }
