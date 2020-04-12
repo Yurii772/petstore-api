@@ -10,10 +10,10 @@ public class GetByID {
 
     @Before
     public void createPreconditions() {
-       // int id=0;
+        int id=0;
         String name="Alik";
         String body = "{\n" +
-                "  \"id\":\"0\",\n" +
+                "  \"id\":\""+id+"\",\n" +
                 "  \"category\": {\n" +
                 "    \"id\": 0,\n" +
                 "    \"name\": \"string\"\n" +
