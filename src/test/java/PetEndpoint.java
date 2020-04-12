@@ -48,7 +48,7 @@ public class PetEndpoint {
     public ValidatableResponse getById(long petId) {
         return given()
                 .when()
-                .get(get_By_Id)
+                .get(get_By_Id, petId)
                 .then()
                 .log()
                 .all()
@@ -67,6 +67,8 @@ public class PetEndpoint {
                 .statusCode(200);
     }
     public ValidatableResponse updExistingPet (String body) {
+        String updName = "Sharikas";            //пришлось хардкожить здесь и в тесте для добавления проверок здесь и передачи с боди в тесте
+        String updStatus = "sold";
         return given()
                 .body(body)
                 .when()
@@ -74,9 +76,21 @@ public class PetEndpoint {
                 .then()
                 .log()
                 .all()
-                .body("name", is("Sharik"))
-                .body("status", is("sold"))
+                .body("name", is(updName))
+                .body("status", is(updStatus))
                 .statusCode(200);
     }
-    
+    public ValidatableResponse updWithFormData (long petID) {
+        return given()
+                .contentType("application/x-www-form-urlencoded")
+                .formParam("name", ">|<0p1k")
+                .formParam("status", "sold")
+                .when()
+                .post(update_Pet_With_Form_Data, petID)
+                .then()
+                .log()
+                .all()
+                .body("message", anyOf(is(petID), is(String.valueOf(petID))))
+                .statusCode(200);
+    }
 }
