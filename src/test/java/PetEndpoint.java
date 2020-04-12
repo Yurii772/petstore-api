@@ -65,5 +65,4 @@ public class PetEndpoint {
                 .body("status", everyItem(equalTo(petStatus)))
                 .statusCode(200);
     }
-
 }
