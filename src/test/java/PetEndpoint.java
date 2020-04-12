@@ -8,8 +8,8 @@ import static org.hamcrest.Matchers.*;
 public class PetEndpoint {
     private final static String get_By_Id="/pet/{id}";
     private final static String get_Pet_By_Status="/pet/findByStatus?status{status}";
-    //private final static String update_Existing_Pet="/pet";
-    //private final static String update_Pet_With_Form_Data="/pet/{id}";
+    private final static String update_Existing_Pet="/pet";
+    private final static String update_Pet_With_Form_Data="/pet/{id}";
     private final static String delete_Pet="/pet/{id}";
     private final static String create_Pet="/pet";
 
@@ -35,6 +35,7 @@ public class PetEndpoint {
 
     public ValidatableResponse deletePet (long petId) {
         return given()
+                .header("api_key", "special-key")
                 .when()
                 .delete(delete_Pet, petId)
                 .then()
@@ -65,4 +66,17 @@ public class PetEndpoint {
                 .body("status", everyItem(equalTo(petStatus)))
                 .statusCode(200);
     }
+    public ValidatableResponse updExistingPet (String body) {
+        return given()
+                .body(body)
+                .when()
+                .post(update_Existing_Pet)
+                .then()
+                .log()
+                .all()
+                .body("name", is("Sharik"))
+                .body("status", is("sold"))
+                .statusCode(200);
+    }
+    
 }
