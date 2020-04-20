@@ -22,9 +22,9 @@ public class PetEndpoint {
                 .log()
                 .all();
     }
-    public ValidatableResponse createPet(String body) {
+    public ValidatableResponse createPet(Pet pet) {
         return given()
-                .body(body)
+                .body(pet)
                 .when()
                 .post(create_Pet)
                 .then()
@@ -66,11 +66,11 @@ public class PetEndpoint {
                 .body("status", everyItem(equalTo(petStatus)))
                 .statusCode(200);
     }
-    public ValidatableResponse updExistingPet (String body) {
+    public ValidatableResponse updExistingPet (Pet pet) {
         String updName = "Sharikas";            //пришлось хардкожить здесь и в тесте для добавления проверок здесь и передачи с боди в тесте
         String updStatus = "sold";
         return given()
-                .body(body)
+                .body(pet)
                 .when()
                 .post(update_Existing_Pet)
                 .then()

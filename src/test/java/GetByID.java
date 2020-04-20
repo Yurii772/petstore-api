@@ -10,28 +10,9 @@ public class GetByID {
 
     @Before
     public void createPreconditions() {
-        int id=0;
-        String name="Alik";
-        String body = "{\n" +
-                "  \"id\":\""+id+"\",\n" +
-                "  \"category\": {\n" +
-                "    \"id\": 0,\n" +
-                "    \"name\": \"string\"\n" +
-                "  },\n" +
-                "  \"name\": \""+name+"\",\n" +
-                "  \"photoUrls\": [\n" +
-                "    \"string\"\n" +
-                "  ],\n" +
-                "  \"tags\": [\n" +
-                "    {\n" +
-                "      \"id\": 0,\n" +
-                "      \"name\": \"string\"\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"status\": \"available\"\n" +
-                "}";
-        ValidatableResponse response=petEndpoint.createPet(body);
-        createdPetId=response.extract().path("id");
+        Pet pet = new Pet("0", "Alik", "Sold");
+        ValidatableResponse response = petEndpoint.createPet(pet);
+        createdPetId = response.extract().path("id");
     }
     @After
     public void deleteCreatedPreconditions () {
