@@ -3,7 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class deletePet {
-    long createdPetId;
+    int createdPetId;
     PetEndpoint petEndpoint = new PetEndpoint();
 
     @Before

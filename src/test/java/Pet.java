@@ -3,7 +3,7 @@ public class Pet {
     private String id;
     private Category category;
     private String name;
-    private PhotoUrls[] photoUrls;
+    private String[] photoUrls;
     private Tags[] tags;
     private String status;
 
@@ -12,7 +12,8 @@ public class Pet {
         this.category = new Category("0", "dogs");
         this.name = name;
         this.status = status;
-        this.photoUrls = new PhotoUrls[]{new PhotoUrls("https://media.mnn.com/assets/images/2017/02/scarlet-kingsnakes.jpg.838x0_q80.jpg")};
+        this.photoUrls = new String[]{"https://i.insider.com/5ba126df3cccd120008b4568?width=2500&format=jpeg&auto=webp",
+                "https://myfeed.ru/wp-content/uploads/2016/04/priroda-zhivotnoe-enot-lapy-2-768x432.jpg"};
         this.tags = new Tags[]{new Tags("0", "Sharikas")};
     }
 
@@ -28,7 +29,7 @@ public class Pet {
         return name;
     }
 
-    public PhotoUrls[] getPhotoUrls() {
+    public String[] getPhotoUrls() {
         return photoUrls;
     }
 

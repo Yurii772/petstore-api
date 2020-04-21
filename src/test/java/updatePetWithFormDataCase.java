@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class updatePetWithFormDataCase {
-    long createdPetId;
+    int createdPetId;
     PetEndpoint petEndpoint=new PetEndpoint();
     @Before
     public void createPreconditions() {

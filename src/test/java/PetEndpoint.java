@@ -45,7 +45,7 @@ public class PetEndpoint {
                 .statusCode(200);
 
     }
-    public ValidatableResponse getById(long petId) {
+    public ValidatableResponse getById(int petId) {
         return given()
                 .when()
                 .get(get_By_Id, petId)
@@ -68,7 +68,7 @@ public class PetEndpoint {
     }
     public ValidatableResponse updExistingPet (Pet pet) {
         String updName = "Sharikas";            //пришлось хардкожить здесь и в тесте для добавления проверок здесь и передачи с боди в тесте
-        String updStatus = "sold";
+        String updStatus = "pending";
         return given()
                 .body(pet)
                 .when()
@@ -80,7 +80,7 @@ public class PetEndpoint {
                 .body("status", is(updStatus))
                 .statusCode(200);
     }
-    public ValidatableResponse updWithFormData (long petID) {
+    public ValidatableResponse updWithFormData (int petID) {
         return given()
                 .contentType("application/x-www-form-urlencoded")
                 .formParam("name", ">|<0p1k")
