@@ -6,6 +6,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.*;
 
 public class PetEndpoint {
@@ -34,7 +35,7 @@ public class PetEndpoint {
                 .when()
                 .post(create_Pet)
                 .then()
-                .statusCode(200);
+                .statusCode(SC_OK);
     }
 
     public ValidatableResponse deletePet (long petId) {
@@ -44,7 +45,7 @@ public class PetEndpoint {
                 .delete(delete_Pet, petId)
                 .then()
                 .body("message", is(String.valueOf(petId)))
-                .statusCode(200);
+                .statusCode(SC_OK);
     }
 
     public ValidatableResponse getById(long petId) {
@@ -53,7 +54,7 @@ public class PetEndpoint {
                 .get(get_By_Id, petId)
                 .then()
                 .body("id", is(petId))
-                .statusCode(200);
+                .statusCode(SC_OK);
     }
 
     public ValidatableResponse getByStatus (String petStatus) {
@@ -64,7 +65,7 @@ public class PetEndpoint {
                 .get(get_Pet_By_Status, petStatus)
                 .then()
                 .body("status", everyItem(equalTo(petStatus)))
-                .statusCode(200);
+                .statusCode(SC_OK);
     }
 
     public ValidatableResponse updExistingPet (Pet pet) {
@@ -77,7 +78,7 @@ public class PetEndpoint {
                 .then()
                 .body("name", is(updName))
                 .body("status", is(updStatus))
-                .statusCode(200);
+                .statusCode(SC_OK);
     }
 
     public ValidatableResponse updWithFormData (long petID) {
@@ -89,6 +90,6 @@ public class PetEndpoint {
                 .post(update_Pet_With_Form_Data, petID)
                 .then()
                 .body("message", anyOf(is(petID), is(String.valueOf(petID))))
-                .statusCode(200);
+                .statusCode(SC_OK);
     }
 }
