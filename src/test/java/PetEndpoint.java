@@ -45,7 +45,7 @@ public class PetEndpoint {
                 .statusCode(200);
 
     }
-    public ValidatableResponse getById(int petId) {
+    public ValidatableResponse getById(long petId) {
         return given()
                 .when()
                 .get(get_By_Id, petId)
@@ -80,7 +80,7 @@ public class PetEndpoint {
                 .body("status", is(updStatus))
                 .statusCode(200);
     }
-    public ValidatableResponse updWithFormData (int petID) {
+    public ValidatableResponse updWithFormData (long petID) {
         return given()
                 .contentType("application/x-www-form-urlencoded")
                 .formParam("name", ">|<0p1k")

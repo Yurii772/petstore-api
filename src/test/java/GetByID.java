@@ -6,7 +6,7 @@ import org.junit.Test;
 public class GetByID {
 
     PetEndpoint petEndpoint=new PetEndpoint();
-    int createdPetId;
+    long createdPetId;
 
     @Before
     public void createPreconditions() {
