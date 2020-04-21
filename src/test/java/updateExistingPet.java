@@ -10,7 +10,7 @@ public class updateExistingPet {
 
     @Before
     public void createPreconditions() {
-        Pet pet = new Pet("0", "Alik", "sold");
+        Pet pet = new Pet("0", "Alik", Status.SOLD);
         ValidatableResponse response = petEndpoint.createPet(pet);
         createdPetId = response.extract().path("id");
     }
@@ -22,7 +22,7 @@ public class updateExistingPet {
 
     @Test
     public void updateExPet() {
-                Pet pet = new Pet (String.valueOf(createdPetId), "Sharikas", "pending");
+                Pet pet = new Pet (String.valueOf(createdPetId), "Sharikas", Status.PENDING);
         petEndpoint.updExistingPet(pet);
     }
 }

@@ -8,7 +8,7 @@ public class deletePet {
 
     @Before
     public void createPreconditions() {
-        Pet pet = new Pet("0", "Alik", "sold");
+        Pet pet = new Pet("0", "Alik", Status.SOLD);
         ValidatableResponse response = petEndpoint.createPet(pet);
         createdPetId = response.extract().path("id");
     }

@@ -8,7 +8,7 @@ public class updatePetWithFormDataCase {
     PetEndpoint petEndpoint=new PetEndpoint();
     @Before
     public void createPreconditions() {
-        Pet pet = new Pet("0", "Alik", "Sold");
+        Pet pet = new Pet("0", "Alik", Status.SOLD);
         ValidatableResponse response = petEndpoint.createPet(pet);
         createdPetId = response.extract().path("id");
     }

@@ -10,7 +10,7 @@ public class GetByID {
 
     @Before
     public void createPreconditions() {
-        Pet pet = new Pet("0", "Alik", "Sold");
+        Pet pet = new Pet("0", "Alik", Status.AVAILABLE);
         ValidatableResponse response = petEndpoint.createPet(pet);
         createdPetId = response.extract().path("id");
     }

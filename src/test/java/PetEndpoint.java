@@ -70,14 +70,13 @@ public class PetEndpoint {
 
     public ValidatableResponse updExistingPet (Pet pet) {
         String updName = "Sharikas";            //пришлось хардкожить здесь и в тесте для добавления проверок здесь и передачи с боди в тесте
-        String updStatus = "pending";
         return given()
                 .body(pet)
                 .when()
                 .post(update_Existing_Pet)
                 .then()
                 .body("name", is(updName))
-                .body("status", is(updStatus))
+                .body("status", is(String.valueOf(Status.PENDING)))
                 .statusCode(SC_OK);
     }
 
