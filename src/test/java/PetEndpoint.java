@@ -12,13 +12,13 @@ import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.*;
 
 public class PetEndpoint {
-    private final static String get_By_Id="/pet/{id}";
-    private final static String get_Pet_By_Status="/pet/findByStatus?status{status}";
-    private final static String update_Existing_Pet="/pet";
-    private final static String update_Pet_With_Form_Data="/pet/{id}";
-    private final static String delete_Pet="/pet/{id}";
-    private final static String create_Pet="/pet";
-    private final static String uploadImg="/pet/{id}/uploadImage";
+    private final static String GET_BY_ID="/pet/{id}";
+    private final static String GET_PET_BY_STATUS="/pet/findByStatus?status{status}";
+    private final static String UPDATE_EXISTING_PET="/pet";
+    private final static String UPDATE_PET_WITH_FORM_DATA="/pet/{id}";
+    private final static String DELETE_PET="/pet/{id}";
+    private final static String CREATE_PET="/pet";
+    private final static String UPLOAD_IMG="/pet/{id}/uploadImage";
 
     static {
         RestAssured.filters(new RequestLoggingFilter(LogDetail.ALL));
@@ -36,7 +36,7 @@ public class PetEndpoint {
         return given()
                 .body(pet)
                 .when()
-                .post(create_Pet)
+                .post(CREATE_PET)
                 .then()
                 .statusCode(SC_OK);
     }
@@ -45,7 +45,7 @@ public class PetEndpoint {
         return given()
                 .header("api_key", "special-key")
                 .when()
-                .delete(delete_Pet, petId)
+                .delete(DELETE_PET, petId)
                 .then()
                 .body("message", is(String.valueOf(petId)))
                 .statusCode(SC_OK);
@@ -54,7 +54,7 @@ public class PetEndpoint {
     public ValidatableResponse getById(long petId) {
         return given()
                 .when()
-                .get(get_By_Id, petId)
+                .get(GET_BY_ID, petId)
                 .then()
                 .body("id", is(petId))
                 .statusCode(SC_OK);
@@ -65,7 +65,7 @@ public class PetEndpoint {
                 .when()
                 .param("status", petStatus)
                 .log().all()
-                .get(get_Pet_By_Status, petStatus)
+                .get(GET_PET_BY_STATUS, petStatus)
                 .then()
                 .body("status", everyItem(equalTo(petStatus)))
                 .statusCode(SC_OK);
@@ -76,7 +76,7 @@ public class PetEndpoint {
         return given()
                 .body(pet)
                 .when()
-                .post(update_Existing_Pet)
+                .post(UPDATE_EXISTING_PET)
                 .then()
                 .body("name", is(updName))
                 .body("status", is(String.valueOf(Status.PENDING)))
@@ -89,7 +89,7 @@ public class PetEndpoint {
                 .formParam("name", ">|<0p1k")
                 .formParam("status", "sold")
                 .when()
-                .post(update_Pet_With_Form_Data, petID)
+                .post(UPDATE_PET_WITH_FORM_DATA, petID)
                 .then()
                 .body("message", anyOf(is(petID), is(String.valueOf(petID))))
                 .statusCode(SC_OK);
@@ -101,7 +101,7 @@ public class PetEndpoint {
                 .header("api-key", "special-key")
                 .multiPart(new File("/Users/yuriikravchenko/Desktop/Screenshot 2020-04-12 at 16.45.52.png"))
                 .when()
-                .post(uploadImg, petID)
+                .post(UPLOAD_IMG, petID)
                 .then()
                 .body("message", is("additionalMetadata: null\nFile uploaded to ./Screenshot 2020-04-12 at 16.45.52.png, 224353 bytes"))
                 .statusCode(SC_OK);
