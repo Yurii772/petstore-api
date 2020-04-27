@@ -21,6 +21,31 @@ public class uploadPhoto {
 
     @Test
     public void uploadImage () {
-        petEndpoint.uploadPhoto(createdPetId);
+        petEndpoint.uploadPhoto(createdPetId, "Cat2.jpeg");
     }
+
+    @Test
+    public void uploadHugeImage () {
+        petEndpoint.uploadPhoto(createdPetId, "world.topo.bathy.200407.3x21600x10800.png");
+    }
+
+    @Test
+    public void uploadNonImageFormat () {
+        petEndpoint.uploadPhoto(createdPetId, "non-img_file.pkg"); //пробел в имени файла не приемлем
+    }
+
+    @Test
+    public void uploadNotExistingImg () {
+        petEndpoint.uploadPhoto(createdPetId, "not_existing_file.jpeg");
+    }
+
+    @Test
+    public void uploadImgRussianName () {
+        petEndpoint.uploadPhoto(createdPetId, "ккккк.png");
+    }
+    @Test
+    public void uploadImgZeroSize () {
+        petEndpoint.uploadPhoto(createdPetId, )
+    }
+
 }

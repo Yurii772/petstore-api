@@ -87,23 +87,26 @@ public class PetEndpoint {
         return given()
                 .contentType("application/x-www-form-urlencoded")
                 .formParam("name", ">|<0p1k")
-                .formParam("status", "sold")
+                .formParam("status", Status.AVAILABLE)
                 .when()
                 .post(UPDATE_PET_WITH_FORM_DATA, petID)
                 .then()
-                .body("message", anyOf(is(petID), is(String.valueOf(petID))))
+                .body("message", is(String.valueOf(petID)))
                 .statusCode(SC_OK);
     }
 
-    public ValidatableResponse uploadPhoto (long petID) {
+    public ValidatableResponse uploadPhoto (long petID, String fileName) {
+
+        File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
+
         return given()
                 .contentType("multipart/form-data")
                 .header("api-key", "special-key")
-                .multiPart(new File("/Users/yuriikravchenko/Desktop/Screenshot 2020-04-12 at 16.45.52.png"))
+                .multiPart(file)
                 .when()
                 .post(UPLOAD_IMG, petID)
                 .then()
-                .body("message", is("additionalMetadata: null\nFile uploaded to ./Screenshot 2020-04-12 at 16.45.52.png, 224353 bytes"))
+                .body("message", allOf(containsString("File uploaded"), containsString(file.getName())))
                 .statusCode(SC_OK);
     }
 }
