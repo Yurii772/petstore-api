@@ -1,10 +1,11 @@
-import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
+import net.serenitybdd.rest.SerenityRest;
+import net.thucydides.core.annotations.Step;
 
 import java.io.File;
 
@@ -21,17 +22,18 @@ public class PetEndpoint {
     private final static String UPLOAD_IMG="/pet/{id}/uploadImage";
 
     static {
-        RestAssured.filters(new RequestLoggingFilter(LogDetail.ALL));
-        RestAssured.filters(new ResponseLoggingFilter(LogDetail.ALL));
+        SerenityRest.filters(new RequestLoggingFilter(LogDetail.ALL));
+        SerenityRest.filters(new ResponseLoggingFilter(LogDetail.ALL));
     }
 
     private RequestSpecification given() {
-        return RestAssured
+        return SerenityRest
                 .given()
                 .baseUri("https://petstore.swagger.io/v2")
                 .contentType(ContentType.JSON);
     }
 
+    @Step
     public ValidatableResponse createPet(Pet pet) {
         return given()
                 .body(pet)
@@ -41,6 +43,7 @@ public class PetEndpoint {
                 .statusCode(SC_OK);
     }
 
+    @Step
     public ValidatableResponse deletePet (long petId) {
         return given()
                 .header("api_key", "special-key")
@@ -51,6 +54,7 @@ public class PetEndpoint {
                 .statusCode(SC_OK);
     }
 
+    @Step
     public ValidatableResponse getById(long petId) {
         return given()
                 .when()
@@ -60,17 +64,19 @@ public class PetEndpoint {
                 .statusCode(SC_OK);
     }
 
-    public ValidatableResponse getByStatus (String petStatus) {
+    @Step
+    public ValidatableResponse getByStatus (Status status) {
         return given()
                 .when()
-                .param("status", petStatus)
+                .param("status", status)
                 .log().all()
-                .get(GET_PET_BY_STATUS, petStatus)
+                .get(GET_PET_BY_STATUS, status)
                 .then()
-                .body("status", everyItem(equalTo(petStatus)))
+                .body("status", everyItem(equalTo(status.toString())))
                 .statusCode(SC_OK);
     }
 
+    @Step
     public ValidatableResponse updExistingPet (Pet pet) {
         String updName = "Sharikas";            //пришлось хардкожить здесь и в тесте для добавления проверок здесь и передачи с боди в тесте
         return given()
@@ -83,6 +89,7 @@ public class PetEndpoint {
                 .statusCode(SC_OK);
     }
 
+    @Step
     public ValidatableResponse updWithFormData (long petID) {
         return given()
                 .contentType("application/x-www-form-urlencoded")
@@ -95,6 +102,7 @@ public class PetEndpoint {
                 .statusCode(SC_OK);
     }
 
+    @Step
     public ValidatableResponse uploadPhoto (long petID, String fileName) {
 
         File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
@@ -110,3 +118,7 @@ public class PetEndpoint {
                 .statusCode(SC_OK);
     }
 }
+
+
+
+
